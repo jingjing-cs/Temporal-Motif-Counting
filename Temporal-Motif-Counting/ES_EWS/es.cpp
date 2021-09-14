@@ -116,6 +116,7 @@ int main(int argc,char **argv)
 		int seed_p=seeds[jj];
 		double rn;
 		vector<long> ids;
+		start=get_wall_time();
 		default_random_engine e(seed_p);
 		uniform_real_distribution<double> u(0.0,1.0);
 		for(long i=0;i<G.getEn();i++)
@@ -129,6 +130,7 @@ int main(int argc,char **argv)
 				ids.push_back(i);
 			}
 		}
+		time0=get_wall_time()-start;
 		cout<<"number of sampling:"<<ids.size()<<endl;
 		//cout<<G.getHashn()<<endl;
 	
@@ -168,11 +170,11 @@ int main(int argc,char **argv)
 			start=get_wall_time(); 
 			//cout<<"begin"<<endl;
 			double T=G.ExactCountMotifs(delta,ids)/P;
-			time0=get_wall_time()-start;
+			time1=get_wall_time()-start;
 
 			out.open(outfile.c_str(),ios::app);
 			//cout<<"T="<<T<<" T/"<<G.edgesM_.size()<<"="<<T/G.edgesM_.size()<<" "<<time0<<endl;
-			out<<T/G.edgesM_.size()<<" "<<time0<<endl;
+			out<<T/G.edgesM_.size()<<" "<<time0+time1<<endl;
 			out.close();
 		//}
 	}
